@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+
+    <remote name="oe" fetch="git://git.openembedded.org"/>
+    <remote name="yocto" fetch="git://git.yoctoproject.org"/>
+    <remote name="raspberrypi" fetch="git://git.yoctoproject.org"/>
+    <remote name="qt" fetch="https://github.com/meta-qt5"/>
+    <remote name="microfabricator" fetch="https://github.com/TechnocultureResearch/meta-microfabricator"/>
+
+    <project name="meta-openembedded"
+        remote="oe"
+        revision="kirkstone"
+        path="poky-kirkstone/meta-openembedded"/>
+
+     <project name="poky-kirkstone"
+        remote="yocto"
+        revision="kirkstone"
+        path="poky-kirkstone"/>
+
+   <project name="meta-raspberrypi"
+        remote="raspberrypi"
+        revision="kirkstone"
+        path="poky-kirkstone/meta-raspberrypi"/>
+
+    <project name="meta-qt5"
+        remote="qt"
+        revision="kirkstone"
+        path="poky-kirkstone/meta-qt5"/>
+
+    <project name="meta-microfabricator"
+        remote="microfabricator"
+        revision="kirkstone"
+        path="poky-kirkstone/meta-microfabricator"/>
+
+</manifest>
