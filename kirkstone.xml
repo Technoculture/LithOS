@@ -2,7 +2,7 @@
 <manifest>
 
     <remote name="oe" fetch="git://git.openembedded.org"/>
-    <remote name="yocto" fetch="git://git.yoctoproject.org"/>
+    <remote name="yocto" fetch="git://git.yoctoproject.org/poky"/>
     <remote name="raspberrypi" fetch="git://git.yoctoproject.org"/>
     <remote name="qt" fetch="https://github.com/meta-qt5"/>
     <remote name="microfabricator" fetch="https://github.com/TechnocultureResearch/meta-microfabricator"/>
