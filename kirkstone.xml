@@ -9,27 +9,27 @@
 
     <project name="meta-openembedded"
         remote="oe"
-        revision="kirkstone"
+        revision="fcc7d7eae82be4c180f2e8fa3db90a8ab3be07b7"
         path="poky-kirkstone/meta-openembedded"/>
 
      <project name="poky"
         remote="yocto"
-        revision="kirkstone"
+        revision="759a3eb9b5859b22b99873f8b0dd030956370869"
         path="poky-kirkstone"/>
 
    <project name="meta-raspberrypi"
         remote="raspberrypi"
-        revision="kirkstone"
+        revision="0135a02ea577bd39dd552236ead2c5894d89da1d"
         path="poky-kirkstone/meta-raspberrypi"/>
 
     <project name="meta-qt5"
         remote="qt"
-        revision="kirkstone"
+        revision="5b71df60e523423b9df6793de9387f87a149ac42"
         path="poky-kirkstone/meta-qt5"/>
 
     <project name="meta-microfabricator"
         remote="microfabricator"
-        revision="kirkstone"
+        revision="b9e0850b1b991aac9273633f25c149112961eaca"
         path="poky-kirkstone/meta-microfabricator"/>
 
 </manifest>
