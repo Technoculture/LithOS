@@ -7,15 +7,15 @@ build_system: oe
 
 repos:
     meta-openembedded:
-        url: "git://git.openembedded.org"
+        url: "https://git.openembedded.org/meta-openembedded"
         refspec: "fcc7d7eae82be4c180f2e8fa3db90a8ab3be07b7"
         path: "poky-kirkstone/meta-openembedded"
     poky:
-        url: "git://git.yoctoproject.org"
+        url: "https://git.yoctoproject.org/poky/"
         refspec: "759a3eb9b5859b22b99873f8b0dd030956370869"
         path: "poky-kirkstone"
     meta-raspberrypi:
-        url: "git://git.yoctoproject.org"
+        url: "https://git.yoctoproject.org/meta-raspberrypi/"
         refspec: "0135a02ea577bd39dd552236ead2c5894d89da1d"
         path: "poky-kirkstone/meta-raspberrypi"
     meta-qt5:
@@ -23,6 +23,6 @@ repos:
         refspec: "5b71df60e523423b9df6793de9387f87a149ac42"
         path: "poky-kirkstone/meta-qt5"
     meta-microfabricator:
-        url: "https://github.com/TechnocultureResearch.git"
+        url: "https://github.com/TechnocultureResearch/meta-microfabricator.git"
         refspec: "b9e0850b1b991aac9273633f25c149112961eaca"
         path: "poky-kirkstone/meta-microfabricator"
