@@ -46,11 +46,11 @@ b) cp -rp ../../poky-kirkstone/meta-microfabricator/custom/bblayers.conf.sample 
    +VC4DTBO ?= "vc4-fkms-v3d" <br />
 
 
-#bitbake command for compilation <br />
+# bitbake command for compilation
 
 bitbake microfabricator-image <br />
 
-#installing image in SDCARD <br />
+# installing image in SDCARD
 
 path to the image file as below: <br />
 1.cd tmp/deploy/images/raspberrypi4 <br />
