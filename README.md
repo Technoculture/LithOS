@@ -24,25 +24,30 @@ cp -rp ../../poky-kirkstone/meta-microfabricator/custom/bblayers.conf.sample con
    - for auto login:
       `gedit ../../poky-kirkstone/meta/recipes-core/systemd/systemd-serialgetty/serial-getty@.service` - line number 34
 
-      `-ExecStart=-/sbin/agetty -8 -L %I @BAUDRATE@ $TERM`
-      `+ExecStart=-/sbin/agetty -a root -8 -L %I @BAUDRATE@ $TERM`
+      ```
+      -ExecStart=-/sbin/agetty -8 -L %I @BAUDRATE@ $TERM
+      `+ExecStart=-/sbin/agetty -a root -8 -L %I @BAUDRATE@ $TERM
+      ```
 
    - for eglfs and touch:
       `gedit ../../poky-kirkstone/meta-raspberrypi/recipes-bsp/bootfiles/rpi-config_git.bb` - line number 27
+      
       `VC4GRAPHICS="${@bb.utils.contains("MACHINE_FEATURES", "vc4graphics", "1", "0", d)}"`
-      `-VC4DTBO ?= "vc4-kms-v3d"`
-      `+VC4DTBO ?= "vc4-fkms-v3d"`
+      ```
+      -VC4DTBO ?= "vc4-kms-v3d"
+      `+VC4DTBO ?= "vc4-fkms-v3d"
+      ```
 
    - `gedit ../../poky-kirkstone/meta-raspberrypi/conf/machine/raspberrypi4.conf` - line number 22
-      `-VC4DTBO ?= "vc4-kms-v3d"`
-      `+VC4DTBO ?= "vc4-fkms-v3d"`
+      ```
+      -VC4DTBO ?= "vc4-kms-v3d"
+      `+VC4DTBO ?= "vc4-fkms-v3d"
+      ```
 
 # bitbake command for compilation
-
 ```sh
 bitbake microfabricator-image
 ```
-
 
 # installing image in SDCARD
 
