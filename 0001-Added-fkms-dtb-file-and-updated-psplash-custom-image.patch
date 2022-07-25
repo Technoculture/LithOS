@@ -1,0 +1,138 @@
+From f74c81fafee04ec19f7a653d2c5cd74895b0fc6a Mon Sep 17 00:00:00 2001
+From: sundaravinayagam <vinaysun21@gmail.com>
+Date: Mon, 25 Jul 2022 23:32:38 +0530
+Subject: [PATCH] Added fkms dtb file and updated psplash custom image, Also
+ updated cmdline parameters
+
+---
+ conf/machine/include/rpi-base.inc       |   3 ++-
+ conf/machine/raspberrypi4.conf          |   2 +-
+ recipes-bsp/bootfiles/rpi-cmdline.bb    |   4 ++--
+ recipes-bsp/bootfiles/rpi-config_git.bb |   2 +-
+ recipes-core/psplash/files/logo.png     | Bin 0 -> 4536 bytes
+ recipes-core/psplash/psplash_%.bbappend |   6 +++++-
+ 6 files changed, 11 insertions(+), 6 deletions(-)
+ create mode 100644 recipes-core/psplash/files/logo.png
+
+diff --git a/conf/machine/include/rpi-base.inc b/conf/machine/include/rpi-base.inc
+index a2edf06..74fdbb8 100644
+--- a/conf/machine/include/rpi-base.inc
++++ b/conf/machine/include/rpi-base.inc
+@@ -110,7 +110,8 @@ SERIAL_CONSOLES_CHECK ??= "${SERIAL_CONSOLES}"
+ BOOTFILES_DIR_NAME ?= "bootfiles"
+ 
+ # Set Raspberrypi splash image
+-SPLASH ?= "psplash-raspberrypi"
++#SPLASH ?= "psplash-raspberrypi"
++SPLASH ?= "psplash-logo"
+ 
+ def make_dtb_boot_files(d):
+     # Generate IMAGE_BOOT_FILES entries for device tree files listed in
+diff --git a/conf/machine/raspberrypi4.conf b/conf/machine/raspberrypi4.conf
+index 86c57ed..4fc75d8 100644
+--- a/conf/machine/raspberrypi4.conf
++++ b/conf/machine/raspberrypi4.conf
+@@ -19,5 +19,5 @@ SDIMG_KERNELIMAGE ?= "kernel7l.img"
+ UBOOT_MACHINE = "rpi_4_32b_config"
+ SERIAL_CONSOLES ?= "115200;ttyS0"
+ 
+-VC4DTBO ?= "vc4-kms-v3d"
++VC4DTBO ?= "vc4-fkms-v3d"
+ ARMSTUB ?= "armstub7.bin"
+diff --git a/recipes-bsp/bootfiles/rpi-cmdline.bb b/recipes-bsp/bootfiles/rpi-cmdline.bb
+index 413ca4d..af7f05c 100644
+--- a/recipes-bsp/bootfiles/rpi-cmdline.bb
++++ b/recipes-bsp/bootfiles/rpi-cmdline.bb
+@@ -6,10 +6,10 @@ COMPATIBLE_MACHINE = "^rpi$"
+ INHIBIT_DEFAULT_DEPS = "1"
+ inherit deploy nopackages
+ 
+-CMDLINE_DWC_OTG ?= "dwc_otg.lpm_enable=0"
++CMDLINE_DWC_OTG ?= "dwc_otg.lpm_enable=0 "
+ 
+ CMDLINE_ROOT_FSTYPE ?= "rootfstype=ext4"
+-CMDLINE_ROOTFS ?= "root=/dev/mmcblk0p2 ${CMDLINE_ROOT_FSTYPE} rootwait"
++CMDLINE_ROOTFS ?= "root=/dev/mmcblk0p2 ${CMDLINE_ROOT_FSTYPE} rootwait consoleblank=0 quiet loglevel=1" 
+ 
+ CMDLINE_SERIAL ?= "${@oe.utils.conditional("ENABLE_UART", "1", "console=serial0,115200", "", d)}"
+ 
+diff --git a/recipes-bsp/bootfiles/rpi-config_git.bb b/recipes-bsp/bootfiles/rpi-config_git.bb
+index d9d8bb0..6f3e7cf 100644
+--- a/recipes-bsp/bootfiles/rpi-config_git.bb
++++ b/recipes-bsp/bootfiles/rpi-config_git.bb
+@@ -24,7 +24,7 @@ PITFT28c="${@bb.utils.contains("MACHINE_FEATURES", "pitft28c", "1", "0", d)}"
+ PITFT35r="${@bb.utils.contains("MACHINE_FEATURES", "pitft35r", "1", "0", d)}"
+ 
+ VC4GRAPHICS="${@bb.utils.contains("MACHINE_FEATURES", "vc4graphics", "1", "0", d)}"
+-VC4DTBO ?= "vc4-kms-v3d"
++VC4DTBO ?= "vc4-fkms-v3d"
+ GPIO_IR ?= "18"
+ GPIO_IR_TX ?= "17"
+ 
+diff --git a/recipes-core/psplash/files/logo.png b/recipes-core/psplash/files/logo.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..ddff87866af1390d6a429d3eaebed23adc38ec3b
+GIT binary patch
+literal 4536
+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
+
+literal 0
+HcmV?d00001
+
+diff --git a/recipes-core/psplash/psplash_%.bbappend b/recipes-core/psplash/psplash_%.bbappend
+index bf99b2b..b8b356a 100644
+--- a/recipes-core/psplash/psplash_%.bbappend
++++ b/recipes-core/psplash/psplash_%.bbappend
+@@ -1,2 +1,6 @@
++#FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
++#SPLASH_IMAGES:rpi = "file://psplash-raspberrypi-img.h;outsuffix=raspberrypi"
++
+ FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
+-SPLASH_IMAGES:rpi = "file://psplash-raspberrypi-img.h;outsuffix=raspberrypi"
++SPLASH_IMAGES:append = " file://logo.png;outsuffix=logo"
++#ALTERNATIVE_PRIORITY_psplash-bar[psplash] = "200"
+-- 
+2.25.1
+
