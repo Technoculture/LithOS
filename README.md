@@ -19,14 +19,12 @@ cp -rp ../../poky-kirkstone/meta-microfabricator/custom/local.conf.sample conf/l
 cp -rp ../../poky-kirkstone/meta-microfabricator/custom/bblayers.conf.sample conf/bblayers.conf
 ```
 
-# modify the source files
+# Apply patches
 - update the following files
-   - for auto login:
-      `gedit ../../poky-kirkstone/meta/recipes-core/systemd/systemd-serialgetty/serial-getty@.service` - line number 34
-
+   - for auto login and psplash modification:
       ```
-      -ExecStart=-/sbin/agetty -8 -L %I @BAUDRATE@ $TERM
-      `+ExecStart=-/sbin/agetty -a root -8 -L %I @BAUDRATE@ $TERM
+      cd ${WORKDIR}   (WORKDIR is poky-kirkstone directory)
+      git apply 0001-psplash-modification-for-custom-image.patch
       ```
 
    - for eglfs and touch:
