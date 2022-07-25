@@ -1,0 +1,79 @@
+From 04e9885a624b3c73d16cfa08829f55a9f852bb3f Mon Sep 17 00:00:00 2001
+From: sundaravinayagam <vinaysun21@gmail.com>
+Date: Mon, 25 Jul 2022 23:19:41 +0530
+Subject: [PATCH] psplash modification for custom image Added autologin support
+
+---
+ .../files/0001-Changed-screen-split.patch     | 29 +++++++++++++++++++
+ meta/recipes-core/psplash/psplash_git.bb      |  4 +++
+ .../systemd-serialgetty/serial-getty@.service |  3 +-
+ 3 files changed, 35 insertions(+), 1 deletion(-)
+ create mode 100644 meta/recipes-core/psplash/files/0001-Changed-screen-split.patch
+
+diff --git a/meta/recipes-core/psplash/files/0001-Changed-screen-split.patch b/meta/recipes-core/psplash/files/0001-Changed-screen-split.patch
+new file mode 100644
+index 0000000000..ab7d68123b
+--- /dev/null
++++ b/meta/recipes-core/psplash/files/0001-Changed-screen-split.patch
+@@ -0,0 +1,29 @@
++From 7147ac4dcd3b342857c8055ab06892f31febde60 Mon Sep 17 00:00:00 2001
++From: sundaravinayagam <vinaysun21@gmail.com>
++Date: Thu, 21 Jul 2022 08:30:06 +0530
++Subject: [PATCH 1/1] Changed screen split
++Upstream-Status: Pending
++
++---
++ psplash-config.h | 4 ++--
++ 1 file changed, 2 insertions(+), 2 deletions(-)
++
++diff --git a/psplash-config.h b/psplash-config.h
++index eb90ef3..b397deb 100644
++--- a/psplash-config.h
+++++ b/psplash-config.h
++@@ -27,9 +27,9 @@
++ #endif
++ 
++ /* Position of the image split from top edge, numerator of fraction */
++-#define PSPLASH_IMG_SPLIT_NUMERATOR 5
+++#define PSPLASH_IMG_SPLIT_NUMERATOR 0
++ 
++ /* Position of the image split from top edge, denominator of fraction */
++-#define PSPLASH_IMG_SPLIT_DENOMINATOR 6
+++#define PSPLASH_IMG_SPLIT_DENOMINATOR 0
++ 
++ #endif
++-- 
++2.25.1
++
+diff --git a/meta/recipes-core/psplash/psplash_git.bb b/meta/recipes-core/psplash/psplash_git.bb
+index edc0ac1d89..093908ba8e 100644
+--- a/meta/recipes-core/psplash/psplash_git.bb
++++ b/meta/recipes-core/psplash/psplash_git.bb
+@@ -16,6 +16,10 @@ SRC_URI = "git://git.yoctoproject.org/${BPN};branch=master \
+            ${SPLASH_IMAGES}"
+ UPSTREAM_CHECK_COMMITS = "1"
+ 
++SRC_URI:append = " file://0001-Changed-screen-split.patch"
++EXTRA_OECONF:append = " --enable-img-fullscreen --disable-progress-bar"
++
++
+ SPLASH_IMAGES = "file://psplash-poky-img.h;outsuffix=default"
+ 
+ python __anonymous() {
+diff --git a/meta/recipes-core/systemd/systemd-serialgetty/serial-getty@.service b/meta/recipes-core/systemd/systemd-serialgetty/serial-getty@.service
+index b16fe1188e..11cb757ff7 100644
+--- a/meta/recipes-core/systemd/systemd-serialgetty/serial-getty@.service
++++ b/meta/recipes-core/systemd/systemd-serialgetty/serial-getty@.service
+@@ -30,7 +30,8 @@ Before=rescue.service
+ 
+ [Service]
+ Environment="TERM=@TERM@"
+-ExecStart=-/sbin/agetty -8 -L %I @BAUDRATE@ $TERM
++#ExecStart=-/sbin/agetty -8 -L %I @BAUDRATE@ $TERM
++ExecStart=-/sbin/agetty -a root -8 -L %I @BAUDRATE@ $TERM
+ Type=idle
+ Restart=always
+ UtmpIdentifier=%I
+-- 
+2.25.1
+
