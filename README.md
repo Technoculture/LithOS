@@ -27,19 +27,10 @@ cp -rp ../../poky-kirkstone/meta-microfabricator/custom/bblayers.conf.sample con
       git apply 0001-psplash-modification-for-custom-image.patch
       ```
 
-   - for eglfs and touch:
-      `gedit ../../poky-kirkstone/meta-raspberrypi/recipes-bsp/bootfiles/rpi-config_git.bb` - line number 27
-      
-      `VC4GRAPHICS="${@bb.utils.contains("MACHINE_FEATURES", "vc4graphics", "1", "0", d)}"`
+   - for eglfs and splash screen and cmdline modification:
       ```
-      -VC4DTBO ?= "vc4-kms-v3d"
-      `+VC4DTBO ?= "vc4-fkms-v3d"
-      ```
-
-   - `gedit ../../poky-kirkstone/meta-raspberrypi/conf/machine/raspberrypi4.conf` - line number 22
-      ```
-      -VC4DTBO ?= "vc4-kms-v3d"
-      `+VC4DTBO ?= "vc4-fkms-v3d"
+      cd ${WORKDIR}/meta-raspberrypi (WORKDIR is poky-kirkstone directory)
+      git apply 0001-Added-fkms-dtb-file-and-updated-psplash-custom-image.patch
       ```
 
 # bitbake command for compilation
