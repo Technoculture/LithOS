@@ -6,18 +6,28 @@ distro: poky
 build_system: oe
 
 repos:
+    this:
+
+    poky:
+        url: "https://git.yoctoproject.org/poky"
+        refspec: "759a3eb9b5859b22b99873f8b0dd030956370869"
+        path: "poky-kirkstone"
+        patches:
+            plain:
+                repo: this
+                path: 0001-psplash-modification-for-custom-image.patch
     meta-openembedded:
         url: "https://git.openembedded.org/meta-openembedded"
         refspec: "fcc7d7eae82be4c180f2e8fa3db90a8ab3be07b7"
         path: "poky-kirkstone/meta-openembedded"
-    poky:
-        url: "https://git.yoctoproject.org/poky/"
-        refspec: "759a3eb9b5859b22b99873f8b0dd030956370869"
-        path: "poky-kirkstone"
     meta-raspberrypi:
-        url: "https://git.yoctoproject.org/meta-raspberrypi/"
+        url: "https://git.yoctoproject.org/meta-raspberrypi"
         refspec: "0135a02ea577bd39dd552236ead2c5894d89da1d"
         path: "poky-kirkstone/meta-raspberrypi"
+        patches:
+            plain:
+                repo: this
+                path: 0001-Added-fkms-dtb-file-and-updated-psplash-custom-image.patch
     meta-qt5:
         url: "https://github.com/meta-qt5/meta-qt5.git"
         refspec: "5b71df60e523423b9df6793de9387f87a149ac42"
