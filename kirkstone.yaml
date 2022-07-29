@@ -1,38 +1,79 @@
 header:
     version: 1
-
 machine: raspberrypi4
 distro: poky
 build_system: oe
+target: microfabricator-image
 
 repos:
-    this:
-
     poky:
         url: "https://git.yoctoproject.org/poky"
         refspec: "759a3eb9b5859b22b99873f8b0dd030956370869"
         path: "poky-kirkstone"
         patches:
-            plain:
-                repo: this
-                path: 0001-psplash-modification-for-custom-image.patch
+          plain:
+              repo: meta-microfabricator
+              path: recipes-apps/microfabricator/files/0001-psplash-modification-for-custom-image.patch
+        layers:
+          meta:
+          meta-poky:
+          meta-yocto-bsp:
     meta-openembedded:
         url: "https://git.openembedded.org/meta-openembedded"
         refspec: "fcc7d7eae82be4c180f2e8fa3db90a8ab3be07b7"
         path: "poky-kirkstone/meta-openembedded"
+        layers:
+          meta-oe:
+          meta-multimedia:
+          meta-networking:
+          meta-python:
+          meta-perl:
     meta-raspberrypi:
         url: "https://git.yoctoproject.org/meta-raspberrypi"
         refspec: "0135a02ea577bd39dd552236ead2c5894d89da1d"
         path: "poky-kirkstone/meta-raspberrypi"
         patches:
-            plain:
-                repo: this
-                path: 0001-Added-fkms-dtb-file-and-updated-psplash-custom-image.patch
+          plain:
+              repo: meta-microfabricator
+              path: recipes-apps/microfabricator/files/0001-Added-fkms-dtb-file-and-updated-psplash-custom-image.patch
     meta-qt5:
         url: "https://github.com/meta-qt5/meta-qt5.git"
         refspec: "5b71df60e523423b9df6793de9387f87a149ac42"
         path: "poky-kirkstone/meta-qt5"
     meta-microfabricator:
         url: "https://github.com/TechnocultureResearch/meta-microfabricator.git"
-        refspec: "23fbe771262c4bf0ebed9919e227b69c5aa812cc"
+        refspec: "bec509abc9d632f89ea6317a73cd10477e00a440"
         path: "poky-kirkstone/meta-microfabricator"
+bblayers_conf_header:
+     custom-bblayers-conf: |
+      POKY_BBLAYERS_CONF_VERSION = "2"
+local_conf_header:
+  custom-bblayers-conf: |
+    LICENSE_FLAGS_ACCEPTED = "commercial"
+    DISTRO_FEATURES = "ext2 security systemd usbhost ${DISTRO_FEATURES_LIBC}"
+    DISTRO_FEATURES_BACKFILL_CONSIDERED += "pulseaudio sysvinit"
+    DISTRO_FEATURES:remove = "ptest"
+    DISTRO_FEATURES:remove = " x11 wayland"
+    DISTRO_FEATURES:remove = " vulkan directfb"
+    DISTRO_FEATURES:append = " opengl"
+    INIT_MANAGER = "systemd"
+    MACHINE_FEATURES:remove = "apm vfat"
+    IMAGE_FSTYPES = "tar.xz ext3 rpi-sdimg"
+    IMAGE_INSTALL:append = " openssh-sftp-server sudo python3 python3-pip rpi-gpio raspi-gpio"
+    IMAGE_FEATURES:append = " ssh-server-openssh"
+    KERNEL_IMAGETYPE = "zImage"
+    DISABLE_OVERSCAN = "1"
+    ENABLE_UART = "1"
+    ENABLE_RPI3_SERIAL_CONSOLE = "1"
+    SERIAL_CONSOLES = "115200;ttyAMA0"
+    PACKAGE_CLASSES = "package_ipk"
+    SDKMACHINE = "x86_64"
+    IMAGE_INSTALL:append = " psplash"
+    IMAGE_INSTALL:append = " omxplayer"
+    USER:CLASSES = "image-mklibs image-prelink"
+    PATCHRESOLVE = "noop"
+    RM_OLD_IMAGE = "1"
+    INHERIT += "rm_work"
+    CONF_VERSION = "2"
+    PACKAGECONFIG:append_pn:qtmultimedia = " gstreamer"
+    GPU_MEM = "512"
