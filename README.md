@@ -1,48 +1,29 @@
-# yocto-microfabricator envrionment setup
+# LithOS
 
+## Pre-requisites
+- Docker
+
+### Clone kas
 ```sh
-mkdir repo 
-cd repo
-repo init -u https://github.com/TechnocultureResearch/yocto-microfabricator -b kirkstone -m kirkstone.xml
-repo sync -j16
+> git clone https://github.com/siemens/kas
 ```
 
-## yocto-microfabricator compilation setup
-`mkdir rpi`
+This repositiry contains the script that we will be using to build images, sdk and access the yocto development environment. The key script we will be using is `kas-container`.
 
-## Execute the below command for envrionment setup
-`source poky-kirkstone/oe-init-build-env ./rpi/build`
+## Build Instructions
 
-- copy the conf files as below
+### Build Image
 ```sh
-cp -rp ../../poky-kirkstone/meta-microfabricator/custom/local.conf.sample conf/local.conf
-cp -rp ../../poky-kirkstone/meta-microfabricator/custom/bblayers.conf.sample conf/bblayers.conf
+> $PATH_TO_KAS_DIR/kas-container build kirkstone.yaml
 ```
 
-# Apply patches
-- update the following files
-   - for auto login and psplash modification:
-      ```
-      cd ${WORKDIR}   (WORKDIR is poky-kirkstone directory)
-      git apply 0001-psplash-modification-for-custom-image.patch
-      ```
+This command will build the image.
 
-   - for eglfs and splash screen and cmdline modification:
-      ```
-      cd ${WORKDIR}/meta-raspberrypi (WORKDIR is poky-kirkstone directory)
-      git apply 0001-Added-fkms-dtb-file-and-updated-psplash-custom-image.patch
-      ```
-
-# bitbake command for compilation
+### Access development environment
 ```sh
-bitbake microfabricator-image
+> $PATH_TO_KAS_DIR/kas-container shell kirkstone.yaml
 ```
 
-# installing image in SDCARD
+---
 
-path to the image file as below:
-`cd tmp/deploy/images/raspberrypi4`
-
-flash the image in sdcard as below:
-`sudo dd if=./microfabricator-image-raspberrypi4.rpi-sdimg of=/dev/sdX` X-will be your file system (ex: sda,sdb,etc..)
-
+Refer the [documentation](https://kas.readthedocs.io/en/latest/) for more info. 
