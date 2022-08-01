@@ -22,11 +22,14 @@ jobs:
     steps:  
       - name: Checkout LithOS
         uses: actions/checkout@v3
+        with:
+          path: main
         
       - name: Clone kas
         uses: actions/checkout@v3
         with:
           repository: siemens/kas
+          path: kas
       
       - name: Setup docker
         uses: docker-practice/actions-setup-docker@master
@@ -37,4 +40,4 @@ jobs:
             docker version
       
       - name: Build OS Image
-        run: ./kas/kas-container build ./kirkstone.yaml
+        run: kas/kas/kas-container build main/kirkstone.yaml
