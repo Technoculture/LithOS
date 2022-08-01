@@ -17,7 +17,7 @@ concurrency:
   cancel-in-progress: true
   
 jobs:
-  check-links:
+  build-image:
     runs-on: self-hosted
     steps:  
       - name: Checkout LithOS
