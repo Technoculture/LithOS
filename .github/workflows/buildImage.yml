@@ -40,4 +40,4 @@ jobs:
             docker version
       
       - name: Build OS Image
-        run: kas/kas/kas-container build main/kirkstone.yaml
+        run: kas/kas-container build main/kirkstone.yaml
