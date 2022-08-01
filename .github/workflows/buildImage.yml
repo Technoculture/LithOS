@@ -18,7 +18,7 @@ concurrency:
   
 jobs:
   build-image:
-    runs-on: self-hosted
+    runs-on: [self-hosted, macOS, ARM64]
     steps:  
       - name: Checkout LithOS
         uses: actions/checkout@v3
