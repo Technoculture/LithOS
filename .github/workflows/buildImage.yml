@@ -1,0 +1,40 @@
+name: 'Build LithOS Image'
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - kirkstone
+  pull_request:
+  
+permissions:
+  contents: read
+  pull-requests: read
+
+# This allows a subsequently queued workflow run to interrupt previous runs
+concurrency:
+  group: '${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}'
+  cancel-in-progress: true
+  
+jobs:
+  check-links:
+    runs-on: self-hosted
+    steps:  
+      - name: Checkout LithOS
+        uses: actions/checkout@v3
+        
+      - name: Clone kas
+        uses: actions/checkout@v3
+        with:
+          repository: siemens/kas
+      
+      - name: Setup docker
+        uses: docker-practice/actions-setup-docker@master
+        
+      - name: Check Docker Version
+        run: |
+            set -x
+            docker version
+      
+      - name: Build OS Image
+        run: ./kas/kas-container build ./kirkstone.yaml
