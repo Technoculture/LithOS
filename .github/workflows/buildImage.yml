@@ -2,10 +2,6 @@ name: 'Build LithOS Image'
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - kirkstone
-  pull_request:
   
 permissions:
   contents: read
@@ -41,3 +37,35 @@ jobs:
       
       - name: Build OS Image
         run: kas/kas-container build main/kirkstone.yaml
+
+      - name: Check disk usage after build
+        run: df -h
+
+      - name: Pack
+        run: |
+            cd ${{ github.workspace }}/poky/build/tmp
+            tar -Jcf lithos.tar.xz deploy/images
+            echo "PACKAGE=${{ github.workspace }}/poky/build/tmp/lithos.tar.xz" >> $GITHUB_ENV
+        
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: |
+            Test upload-to-github-release works with ```actions/create-release```
+          draft: true
+          prerelease: false
+      
+      - uses: xresloader/upload-to-github-release@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          file: "*.md;*.zip;random-name-*.txt"
+          delete_file: "random-name-*.txt;random-*.txt"
+          release_id: ${{ steps.create_release.outputs.id }}
+          overwrite: true
+          verbose: true
