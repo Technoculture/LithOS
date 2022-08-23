@@ -11,9 +11,12 @@ repos:
         refspec: "759a3eb9b5859b22b99873f8b0dd030956370869"
         path: "poky-kirkstone"
         patches:
-          plain:
+         psplash:
               repo: meta-microfabricator
-              path: recipes-apps/microfabricator/files/0001-psplash-modification-for-custom-image.patch
+              path: recipes-apps/microfabricator/files/poky/0001-psplash-modification-for-custom-image.patch
+         rust:
+              repo: meta-microfabricator
+              path: recipes-apps/microfabricator/files/poky/0002-Modified-wget-command-to-download-rust-libraries.patch
         layers:
           meta:
           meta-poky:
@@ -35,22 +38,45 @@ repos:
         patches:
           plain:
               repo: meta-microfabricator
-              path: recipes-apps/microfabricator/files/0001-Added-fkms-dtb-file-and-updated-psplash-custom-image.patch
+              path: recipes-apps/microfabricator/files/raspi/0001-Added-fkms-dtb-file-and-updated-psplash-custom-image.patch
     meta-qt5:
         url: "https://github.com/meta-qt5/meta-qt5.git"
         refspec: "5b71df60e523423b9df6793de9387f87a149ac42"
         path: "poky-kirkstone/meta-qt5"
     meta-microfabricator:
         url: "https://github.com/TechnocultureResearch/meta-microfabricator.git"
-        refspec: "bec509abc9d632f89ea6317a73cd10477e00a440"
+        refspec: "fb65dd6003a955825dc730c1575f619feea7f7b4"
         path: "poky-kirkstone/meta-microfabricator"
+    meta-rust:
+        url: "https://github.com/meta-rust/meta-rust"
+        refspec: "c654f5cb928bd4f4c7da7d74a8356fd2a94283f6"
+        path: "poky-kirkstone/meta-rust"
+        patches:
+          plain:
+              repo: meta-microfabricator
+              path: recipes-apps/microfabricator/files/rust/0001-Added-LED-service.patch
+    meta-rauc:
+        url: "https://github.com/rauc/meta-rauc.git"
+        refspec: "ea4236412dc4449eff4d52d3ef6b6d230355f936"
+        path: "poky-kirkstone/meta-rauc"
+    meta-rauc-community:
+        url: "https://github.com/rauc/meta-rauc-community"
+        refspec: "8077c907cbca329f5ca6faec531c40218c3febd3"
+        path: "poky-kirkstone/meta-rauc-community"
+        layers:
+          meta-rauc-raspberrypi:
+        patches:
+          plain:
+              repo: meta-microfabricator
+              path: recipes-apps/microfabricator/files/rauc/0001-Added-partition-and-rauc-microfabricator-image.patch
+        
 bblayers_conf_header:
      custom-bblayers-conf: |
       POKY_BBLAYERS_CONF_VERSION = "2"
 local_conf_header:
   custom-bblayers-conf: |
     LICENSE_FLAGS_ACCEPTED = "commercial"
-    DISTRO_FEATURES = "ext2 security systemd usbhost ${DISTRO_FEATURES_LIBC}"
+    DISTRO_FEATURES = " rauc security systemd usbhost ${DISTRO_FEATURES_LIBC}"
     DISTRO_FEATURES_BACKFILL_CONSIDERED += "pulseaudio sysvinit"
     DISTRO_FEATURES:remove = "ptest"
     DISTRO_FEATURES:remove = " x11 wayland"
@@ -58,10 +84,12 @@ local_conf_header:
     DISTRO_FEATURES:append = " opengl"
     INIT_MANAGER = "systemd"
     MACHINE_FEATURES:remove = "apm vfat"
-    IMAGE_FSTYPES = "tar.xz ext3 rpi-sdimg"
+    IMAGE_FSTYPES="tar.bz2 ext4 wic.bz2 wic.bmap"
+    IMAGE_INSTALL:append = " rauc"
+    SDIMG_ROOTFS_TYPE="ext4"
     IMAGE_INSTALL:append = " openssh-sftp-server sudo python3 python3-pip rpi-gpio raspi-gpio"
     IMAGE_FEATURES:append = " ssh-server-openssh"
-    KERNEL_IMAGETYPE = "zImage"
+    KERNEL_IMAGETYPE = "uImage"
     DISABLE_OVERSCAN = "1"
     ENABLE_UART = "1"
     ENABLE_RPI3_SERIAL_CONSOLE = "1"
@@ -77,3 +105,12 @@ local_conf_header:
     CONF_VERSION = "2"
     PACKAGECONFIG:append_pn:qtmultimedia = " gstreamer"
     GPU_MEM = "512"
+    DISTRO_FEATURES += "mfab-status-led"
+    RPI_USE_U_BOOT = "1"
+    PREFERRED_PROVIDER_virtual/bootloader = "u-boot"
+    WKS_FILE = "sdimage-dual-raspberrypi.wks"
+    IMAGE_INSTALL:append = " kernel-image kernel-modules"
+    IMAGE_INSTALL:append = " rauc-hawkbit-service"
+    IMAGE_INSTALL:append = " rauc-hawkbit-updater"
+    IMAGE_INSTALL:append = " rauc-hawkbit"
+    DISTRO_FEATURES:append = " rauc"
