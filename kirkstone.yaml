@@ -111,6 +111,7 @@ local_conf_header:
     WKS_FILE = "sdimage-dual-raspberrypi.wks"
     IMAGE_INSTALL:append = " kernel-image kernel-modules"
     IMAGE_INSTALL:append = " rauc-hawkbit-service"
+    DISABLE_RPI_BOOT_LOGO = "1"
     IMAGE_INSTALL:append = " rauc-hawkbit-updater"
     IMAGE_INSTALL:append = " rauc-hawkbit"
     DISTRO_FEATURES:append = " rauc"
