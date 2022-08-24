@@ -45,7 +45,7 @@ repos:
         path: "poky-kirkstone/meta-qt5"
     meta-microfabricator:
         url: "https://github.com/TechnocultureResearch/meta-microfabricator.git"
-        refspec: "fb65dd6003a955825dc730c1575f619feea7f7b4"
+        refspec: "b4f647ff2a3091811d8df00caf914616205a5da8"
         path: "poky-kirkstone/meta-microfabricator"
     meta-rust:
         url: "https://github.com/meta-rust/meta-rust"
