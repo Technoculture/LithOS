@@ -72,3 +72,14 @@ In hawkBit, an update is split into subcategories to accommodate for various com
 3. Once the upgrade is successful we will get notification like below
 ![image11](https://user-images.githubusercontent.com/33483920/186618972-aa3d3871-50d3-4ef7-920f-1bd830a2c007.png)
 
+---
+
+Reference for Update Server: [Hawkbit](https://www.eclipse.org/hawkbit/gettingstarted/)
+
+- On the server at `172.105.43.69`.
+
+```sh
+$ git clone https://github.com/eclipse/hawkbit.git
+$ cd hawkbit/hawkbit-runtime/docker
+$ docker-compose up -d
+```
