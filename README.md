@@ -34,3 +34,7 @@ $PATH_TO_KAS_DIR/kas-container shell kirkstone.yaml
 
 > Refer the [documentation](https://kas.readthedocs.io/en/latest/) for more info.
 > This approach comes from [this blog](https://embeddeduse.com/2022/06/24/setting-up-yocto-projects-with-kas/) by [Embedded Use](https://embeddeduse.com).
+
+---
+
+> ⚠️ [`OTA Procedure`](./OTA.md)
