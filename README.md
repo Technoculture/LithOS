@@ -10,7 +10,7 @@ sudo apt install python3 python3-pip
 sudo pip3 install distro jsonschema kconfiglib PyYAML
 ```
 
-- Docker
+- Install Docker
 ```sh
 sudo apt-get update
 sudo apt-get install ca-certificates curl gnupg lsb-release
