@@ -4,6 +4,8 @@
 
 ## Pre-requisites
 
+Refer to docker instruction guide: [Add Reference Link]()
+
 - Install Python
 ```sh
 sudo apt install python3 python3-pip
@@ -90,8 +92,7 @@ $PATH_TO_KAS_DIR/kas-container build kirkstone.yaml
 $PATH_TO_KAS_DIR/kas-container shell kirkstone.yaml
 ```
 
-- Build file can be found at
-- `/build/tmp/deploy/images/raspberrypi4`
+- Build file can be found at `/build/tmp/deploy/images/raspberrypi4`
 
 > Refer the [documentation](https://kas.readthedocs.io/en/latest/) for more info.
 > This approach comes from [this blog](https://embeddeduse.com/2022/06/24/setting-up-yocto-projects-with-kas/) by [Embedded Use](https://embeddeduse.com).
