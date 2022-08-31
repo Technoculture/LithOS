@@ -9,22 +9,8 @@
     ```sh
     git clone https://github.com/TechnocultureResearch/LithOS -b kirkstone
     ```
-3. Compile microfabricator-image using below command
-    ```sh
-    $PATH_TO_KAS_DIR/kas-container build kirkstone.yaml
-    ```
-4. To prepare bundle image use the below command
-    In `kirkstone.yaml` file change the below variable
-    - From: `target: microfabricator-image`
-    - To: 
-        `target: update-bundle`
-        > Also to differentiate the bundle add the below line in yaml file `IMAGE_INSTALL:append = “ nano”`
 
-> **Note**
-> 
-> `microfabricator.service`,`mfab-status-led.service`, `rauchawkbitupdate.service` all services will be started automatically during the system boot.
 
-- We need to build the image once again after these changes are done then flash it to the device then only OTA update can be downloaded to the device.
 ## Steps to run HAWKBIT Server
 
 ### Initialization and Target Creation
@@ -49,6 +35,22 @@ auth_token                = <security token>
 target_name               = raspberrypi4
 ```
 > Keep the other settings in `config.conf` as it is.
+5. Compile microfabricator-image using below command after these changes are done then flash it to the device then only OTA update can be downloaded to the device.
+    ```sh
+    $PATH_TO_KAS_DIR/kas-container build kirkstone.yaml
+    ``` 
+    
+6. To prepare bundle image use the below command
+    In `kirkstone.yaml` file change the below variable
+    - From: `target: microfabricator-image`
+    - To: 
+        `target: update-bundle`
+        > Also to differentiate the bundle add the below line in yaml file `IMAGE_INSTALL:append = “ nano”`
+7. Build with these parameters to get the update bundle package
+
+> **Note**
+> 
+> `microfabricator.service`,`mfab-status-led.service`, `rauchawkbitupdate.service` all services will be started automatically during the system boot.
 
 ### Uploading RAUC Bundles to the hawkBit Server
 In hawkBit, an update is split into subcategories to accommodate for various combinations of operating system and application updates. For this example, we will focus on OS updates only.
