@@ -4,61 +4,41 @@
 
 ## Pre-requisites
 
+- Install Python
 ```sh
 sudo apt install python3 python3-pip
-```
-```sh
 sudo pip3 install distro jsonschema kconfiglib PyYAML
 ```
-- Docker
 
+- Docker
 ```sh
 sudo apt-get update
-```
-```sh
- sudo apt-get install     ca-certificates     curl     gnupg     lsb-release
-```
-```sh
-sudo mkdir -p /etc/apt/keyrings
-```
-```sh
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-```
+sudo apt-get install ca-certificates curl gnupg lsb-release
 
-```sh
+sudo mkdir -p /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 echo   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-```
-```sh
-sudo apt-get update
-```
-```sh
-sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
-```
 
-```sh
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+
 apt-cache madison docker-ce
 ```
 - Install a specific version  using version string from second column 
-- `
-sudo apt-get install docker-ce=<VERSION_STRING> docker-ce-cli=<VERSION_STRING> containerd.io docker-compose-plugin
-`
+- `sudo apt-get install docker-ce=<VERSION_STRING> docker-ce-cli=<VERSION_STRING> containerd.io docker-compose-plugin`
 ```sh
 sudo apt-get install docker-ce= 5:20.10.17~3-0~ubuntu-focal docker-ce-cli= 5:20.10.17~3-0~ubuntu-focal containerd.io docker-compose-plugin
 ```
 - Check if docker installation successfull
 ```sh
 sudo docker run hello-world
-```
-```sh
+
 sudo groupadd docker
-```
-```sh
 sudo usermod -aG docker $USER
-```
-```sh
 newgrp docker
 ```
+
 - Verify if we can run docker command without sudo
 ```sh
 docker run hello-world
@@ -67,42 +47,27 @@ docker run hello-world
 
 ```sh
 sudo systemctl enable docker.service
-```
-```sh
 sudo systemctl enable containerd.service
-```
-```sh
+
 echo $USER
-```
-```sh
 sudo usermod -aG docker $USER
-```
-```sh
 sudo systemctl restart docker
-```
-```sh
+
 docker ps
 ```
 
 - Cargo
 ```sh
-apt-get -y install cargo
-```
-```sh
+sudo apt-get -y install cargo
 cargo install cargo-bitbake
-```
-```sh
+
 cargo install cargo-bitbake --force
-````
-```sh
 sudo apt-get install build-essential gcc bv bison flex libssl-dev libncurses5-dev libelf-dev
-```
-```sh
+
 sudo apt-get install build-essential libncurses5-dev
 ```
 
 ### Clone kas
-
 ```sh
 git clone https://github.com/siemens/kas
 ```
