@@ -24,6 +24,7 @@
 > 
 > `microfabricator.service`,`mfab-status-led.service`, `rauchawkbitupdate.service` all services will be started automatically during the system boot.
 
+- We need to build the image once again after these changes are done then flash it to the device then only OTA update can be downloaded to the device.
 ## Steps to run HAWKBIT Server
 
 ### Initialization and Target Creation
