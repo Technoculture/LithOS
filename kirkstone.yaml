@@ -45,7 +45,7 @@ repos:
         path: "poky-kirkstone/meta-qt5"
     meta-microfabricator:
         url: "https://github.com/TechnocultureResearch/meta-microfabricator.git"
-        refspec: "b4f647ff2a3091811d8df00caf914616205a5da8"
+        refspec: "4263c77c331119292f3c1328ef4e300989509e85"
         path: "poky-kirkstone/meta-microfabricator"
     meta-rust:
         url: "https://github.com/meta-rust/meta-rust"
@@ -69,6 +69,10 @@ repos:
           plain:
               repo: meta-microfabricator
               path: recipes-apps/microfabricator/files/rauc/0001-Added-partition-and-rauc-microfabricator-image.patch
+    meta-fleet-monitoring-poc:
+        url: "https://github.com/TechnocultureResearch/meta-fleet-monitoring-poc"
+        refspec: "626575d0c310481917fb0eb71051fec6051b4333"
+        path: "poky-kirkstone/meta-fleet-monitoring-poc"
         
 bblayers_conf_header:
      custom-bblayers-conf: |
@@ -111,6 +115,7 @@ local_conf_header:
     WKS_FILE = "sdimage-dual-raspberrypi.wks"
     IMAGE_INSTALL:append = " kernel-image kernel-modules"
     IMAGE_INSTALL:append = " rauc-hawkbit-service"
+    IMAGE_INSTALL:append = " fluent-bit"
     DISABLE_RPI_BOOT_LOGO = "1"
     IMAGE_INSTALL:append = " rauc-hawkbit-updater"
     IMAGE_INSTALL:append = " rauc-hawkbit"
