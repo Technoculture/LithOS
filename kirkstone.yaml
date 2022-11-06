@@ -4,6 +4,7 @@ machine: raspberrypi4
 distro: poky
 build_system: oe
 target: microfabricator-image
+#target: update-bundle
 
 repos:
     poky:
@@ -45,7 +46,7 @@ repos:
         path: "poky-kirkstone/meta-qt5"
     meta-microfabricator:
         url: "https://github.com/TechnocultureResearch/meta-microfabricator.git"
-        refspec: "4263c77c331119292f3c1328ef4e300989509e85"
+        refspec: "fd08f5064fbc8c68125c14040ff5864cf5a94f62"
         path: "poky-kirkstone/meta-microfabricator"
     meta-rust:
         url: "https://github.com/meta-rust/meta-rust"
@@ -71,7 +72,7 @@ repos:
               path: recipes-apps/microfabricator/files/rauc/0001-Added-partition-and-rauc-microfabricator-image.patch
     meta-fleet-monitoring-poc:
         url: "https://github.com/TechnocultureResearch/meta-fleet-monitoring-poc"
-        refspec: "626575d0c310481917fb0eb71051fec6051b4333"
+        refspec: "522ae11f978804717f792d9031e106dc29fcbf75"
         path: "poky-kirkstone/meta-fleet-monitoring-poc"
         
 bblayers_conf_header:
