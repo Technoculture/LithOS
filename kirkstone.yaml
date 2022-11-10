@@ -18,6 +18,9 @@ repos:
          rust:
               repo: meta-microfabricator
               path: recipes-apps/microfabricator/files/poky/0002-Modified-wget-command-to-download-rust-libraries.patch
+         logrotate:
+              repo: meta-microfabricator
+              path: recipes-apps/microfabricator/files/poky/0001-Added-logrotate-service.patch
         layers:
           meta:
           meta-poky:
@@ -37,9 +40,12 @@ repos:
         refspec: "0135a02ea577bd39dd552236ead2c5894d89da1d"
         path: "poky-kirkstone/meta-raspberrypi"
         patches:
-          plain:
+          psplash:
               repo: meta-microfabricator
               path: recipes-apps/microfabricator/files/raspi/0001-Added-fkms-dtb-file-and-updated-psplash-custom-image.patch
+          udevrule:
+              repo: meta-microfabricator
+              path: recipes-apps/microfabricator/files/raspi/0001-Added-usb-serial-udev-rules.patch
     meta-qt5:
         url: "https://github.com/meta-qt5/meta-qt5.git"
         refspec: "5b71df60e523423b9df6793de9387f87a149ac42"
@@ -70,11 +76,6 @@ repos:
           plain:
               repo: meta-microfabricator
               path: recipes-apps/microfabricator/files/rauc/0001-Added-partition-and-rauc-microfabricator-image.patch
-    meta-fleet-monitoring-poc:
-        url: "https://github.com/TechnocultureResearch/meta-fleet-monitoring-poc"
-        refspec: "522ae11f978804717f792d9031e106dc29fcbf75"
-        path: "poky-kirkstone/meta-fleet-monitoring-poc"
-        
 bblayers_conf_header:
      custom-bblayers-conf: |
       POKY_BBLAYERS_CONF_VERSION = "2"
@@ -102,7 +103,7 @@ local_conf_header:
     PACKAGE_CLASSES = "package_ipk"
     SDKMACHINE = "x86_64"
     IMAGE_INSTALL:append = " psplash"
-    IMAGE_INSTALL:append = " omxplayer"
+    IMAGE_INSTALL:append = " omxplayer logrotate"
     USER:CLASSES = "image-mklibs image-prelink"
     PATCHRESOLVE = "noop"
     RM_OLD_IMAGE = "1"
