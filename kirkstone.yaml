@@ -103,7 +103,7 @@ local_conf_header:
     PACKAGE_CLASSES = "package_ipk"
     SDKMACHINE = "x86_64"
     IMAGE_INSTALL:append = " psplash"
-    IMAGE_INSTALL:append = " omxplayer logrotate"
+    IMAGE_INSTALL:append = " omxplayer logrotate sqlite3"
     USER:CLASSES = "image-mklibs image-prelink"
     PATCHRESOLVE = "noop"
     RM_OLD_IMAGE = "1"
