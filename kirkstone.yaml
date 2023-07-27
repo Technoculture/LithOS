@@ -52,7 +52,7 @@ repos:
         path: "poky-kirkstone/meta-qt5"
     meta-microfabricator:
         url: "https://github.com/TechnocultureResearch/meta-microfabricator.git"
-        refspec: "d6aba876c2d30db1fac8e73092625ff0c38584df"
+        refspec: "154b4ae052840a05c3ee1002dd120042953d5a5d"
         path: "poky-kirkstone/meta-microfabricator"
     meta-rust:
         url: "https://github.com/meta-rust/meta-rust"
@@ -122,3 +122,13 @@ local_conf_header:
     IMAGE_INSTALL:append = " rauc-hawkbit-updater"
     IMAGE_INSTALL:append = " rauc-hawkbit"
     DISTRO_FEATURES:append = " rauc"
+    DISTRO_FEATURES:append = " avahi"
+    IMAGE_INSTALL:append = " avahi-daemon"
+    IMAGE_INSTALL:append = " gcc g++ make cmake"
+    IMAGE_INSTALL:append = " openssh"
+    IMAGE_INSTALL:append = " rsync git strace"
+    IMAGE_INSTALL:append = " ntp ntpdate"
+    IMAGE_INSTALL:append = " net-tools iputils dhcpcd "
+    IMAGE_INSTALL:append = " which gzip"
+    IMAGE_INSTALL:append = " wget zlib patchelf curl"
+    IMAGE_INSTALL:append = " packagegroup-core-buildessential"
