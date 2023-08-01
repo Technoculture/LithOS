@@ -128,7 +128,10 @@ local_conf_header:
     IMAGE_INSTALL:append = " openssh"
     IMAGE_INSTALL:append = " rsync git strace"
     IMAGE_INSTALL:append = " ntp ntpdate"
-    IMAGE_INSTALL:append = " net-tools iputils dhcpcd "
+    IMAGE_INSTALL:append = " net-tools iputils dhcpcd mdns"
     IMAGE_INSTALL:append = " which gzip"
     IMAGE_INSTALL:append = " wget zlib patchelf curl"
     IMAGE_INSTALL:append = " packagegroup-core-buildessential"
+    hostname:pn-base-files = "microfab"
+
+
